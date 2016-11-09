@@ -83,7 +83,7 @@ jwtAuthCheck config = do
 -- | Creates a JWT containing the specified data. The data is stored in the
 -- @dat@ claim. The 'Maybe UTCTime' argument indicates the time at which the
 -- token expires.
-makeJWT :: (ToJWT a, MonadSnap m)
+makeJWT :: (ToJWT a, MonadIO m)
   => a -> JWTSettings -> Maybe UTCTime -> m (Either Jose.Error BSL.ByteString)
 makeJWT v cfg expiry = liftIO . runExceptT $ do
   ejwt <- Jose.createJWSJWT (key cfg)
